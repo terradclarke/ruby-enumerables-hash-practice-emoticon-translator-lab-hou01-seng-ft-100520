@@ -13,22 +13,19 @@ def load_library(path)
 frank_emoticons
 end
 
-
-def get_japanese_emoticon(path, emoticon)
-  frank_emoticons = load_library(path)
-  result = frank_emoticons["get_emoticon"][emoticon]
-  if result == nil
-    result = "Sorry, that emoticon was not found" 
+def get_japanese_emoticon(file_path, eng_emo)
+  library = load_library('./lib/emoticons.yml')
+  library.each do |meaning, idioms|
+      return idioms[:japanese] if idioms[:english] == eng_emo
   end
-  result
+  "Sorry, that emoticon was not found"
 end
 
-def get_english_meaning(path, emoticon)
-  frank_emoticons = load_library(path)
-  result = frank_emoticons["get_meaning"][emoticon]
-  if result == nil
-    result = "Sorry, that emoticon was not found" 
+def get_english_meaning(file_path, jap_emo)
+  library = load_library('./lib/emoticons.yml')
+  library.each do |meaning, idioms|
+    return meaning if idioms[:japanese] == jap_emo
   end
-  result
-end
+    "Sorry, that emoticon was not found"
+ end 
 
